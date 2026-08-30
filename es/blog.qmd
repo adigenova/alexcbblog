@@ -1,0 +1,11 @@
+---
+title: Blog
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  fields: [date, title, description, categories]
+  page-size: 10
+  feed: true
+toc: false
+---

@@ -1,0 +1,9 @@
+<script>
+  (() => {
+    const match = window.location.pathname.match(/^(.*\/(?:en|es)\/)/);
+    if (!match) return;
+    const script = document.createElement("script");
+    script.src = `${match[1]}language-switch.js`;
+    document.body.appendChild(script);
+  })();
+</script>

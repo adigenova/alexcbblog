@@ -1,0 +1,39 @@
+project:
+  type: website
+  output-dir: _site
+  resources: [language-switch.js]
+  render:
+    - "*.qmd"
+    - "posts/**/*.qmd"
+
+website:
+  title: digenoma
+  description: "Computational biology in the wild."
+  site-url: "https://adigenova.github.io/alexcbblog/en/"
+  draft-mode: unlinked
+  search: true
+  navbar:
+    left:
+      - { href: index.qmd, text: Home }
+      - { href: blog.qmd, text: Blog }
+      - { href: research.qmd, text: Research }
+      - { href: software.qmd, text: Software }
+      - { href: about.qmd, text: About }
+    right:
+      - href: ../es/
+        text: ES
+      - icon: github
+        href: https://github.com/adigenova/alexcbblog
+        aria-label: GitHub
+
+format:
+  html:
+    theme:
+      light: [cosmo, ../shared/custom.scss]
+      dark: [darkly, ../shared/custom.scss]
+    toc: true
+    include-after-body: ../shared/language-switch.html
+
+lang: en
+execute:
+  freeze: auto

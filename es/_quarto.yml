@@ -1,0 +1,36 @@
+project:
+  type: website
+  output-dir: _site
+  resources: [language-switch.js]
+
+website:
+  title: digenoma
+  description: "Biología computacional en terreno."
+  site-url: "https://adigenova.github.io/alexcbblog/es/"
+  draft-mode: unlinked
+  search: true
+  navbar:
+    left:
+      - { href: index.qmd, text: Inicio }
+      - { href: blog.qmd, text: Blog }
+      - { href: research.qmd, text: Investigación }
+      - { href: software.qmd, text: Software }
+      - { href: about.qmd, text: Acerca de }
+    right:
+      - href: ../en/
+        text: EN
+      - icon: github
+        href: https://github.com/adigenova/alexcbblog
+        aria-label: GitHub
+
+format:
+  html:
+    theme:
+      light: [cosmo, ../shared/custom.scss]
+      dark: [darkly, ../shared/custom.scss]
+    toc: true
+    include-after-body: ../shared/language-switch.html
+
+lang: es
+execute:
+  freeze: auto

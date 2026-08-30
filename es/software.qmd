@@ -1,0 +1,6 @@
+---
+title: Software
+---
+
+Esta sección está reservada para herramientas de código abierto y proyectos de
+software.

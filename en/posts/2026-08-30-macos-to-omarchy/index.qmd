@@ -1,0 +1,311 @@
+---
+title: "Back to Linux after 16 years: from macOS to Omarchy"
+description: "Returning to Linux as a scientific desktop after years of working between macOS and clusters."
+author: adigenova
+date: 2026-08-30
+draft: false
+categories:
+  - Linux
+  - Omarchy
+  - Computational Biology
+---
+
+For a long time, I thought my story with Linux as a desktop operating system was over.
+
+I started using Linux around 2003, when it was perfectly normal to install something on a computer and spend the next several hours figuring out why the sound, graphics card, Wi-Fi—or, on particularly lucky days, all of them—did not work.
+
+I used it as my main system until roughly 2010. I tried several distributions, configured desktops, broke configurations, fixed them, and learned much of what I know about computers precisely because Linux forced me to understand what was happening under the hood.
+
+I even went through an **[Enlightenment](https://www.enlightenment.org/)** phase, trying to build the minimalist, beautiful, futuristic Linux desktop I imagined ought to exist.
+
+It was beautiful.
+
+Sometimes.
+
+When it worked.
+
+Then macOS arrived, and for about 16 years I practically stopped using Linux as a desktop.
+
+But Linux never really disappeared from my life.
+
+It simply moved to the cluster.
+
+## Linux never left
+
+While my personal computer became a Mac, much of my scientific work continued to happen on Linux.
+
+Kütral runs on CentOS. Leftraru runs on Red Hat. Nearly every server, cluster, and machine where I perform important bioinformatics analyses runs some variant of Linux.
+
+My computational life settled into a natural division:
+
+**macOS on the laptop, Linux on the cluster.**
+
+That combination worked extraordinarily well for many years. Meanwhile, something else quietly changed: **my data stopped truly living on my computer**.
+
+Code moved to [GitHub](https://github.com/). Documents moved to Google Drive. Music moved to Apple Music. Scientific repositories live on servers, large datasets on clusters, and important analyses run remotely. Even much of our software has become a web service.
+
+Without noticing, my computer stopped being the place where my things lived. It became primarily **an interface for reaching them**.
+
+That changes the question of which operating system I need.
+
+## Something began to feel strange in macOS
+
+There was no particular day when I declared:
+
+> That's it. I'm leaving macOS.
+
+It was much more gradual. My M1 Pro MacBook Pro remains an excellent computer. In fact, that becomes a problem later in this story.
+
+But macOS had begun to feel less comfortable for how I work. Part of it was small operational annoyances: Google Chrome consuming absurd amounts of memory, frozen screens, and the system occasionally entering a state that makes you think:
+
+> This should not be happening on a computer this expensive.
+
+But something else was more interesting.
+
+## The chatbots arrived
+
+An important part of my workflow changed over the last few years: [ChatGPT](https://chatgpt.com/), [Codex](https://openai.com/codex/), and LLMs in general appeared.
+
+They quickly went from curiosities to tools I use frequently: for programming, exploring ideas, reviewing code, understanding errors, discussing analyses, writing, finding alternatives, and answering the small questions that once meant twenty minutes among [Stack Overflow](https://stackoverflow.com/), documentation, and an abandoned GitHub issue from 2017.
+
+The traditional macOS application model began to feel less natural for this way of working. My work increasingly revolved around:
+
+**terminal + browser + editor + chatbot + cluster.**
+
+macOS started to feel like an extra layer between those things. Nothing dramatic; it simply stopped feeling entirely natural.
+
+Then a dangerous idea appeared:
+
+> What if I go back to Linux?
+
+## Practicing what I teach
+
+There was another reason that particularly bothered me as a computing professor. In several courses I teach Linux, the terminal, SSH, clusters, advanced programming, and scientific tools.
+
+During a recent class, I had a slightly uncomfortable realization: I was teaching students that Linux was fundamental to computational science...
+
+...from a Mac.
+
+There is no technical contradiction, of course, but it began to feel inconsistent. A Mac is also expensive. If I teach tools that should let a student build an excellent working environment with free software and ordinary hardware, it made sense to try living in that ecosystem myself.
+
+Something like **practicing what I teach**.
+
+So I did what we all do when we want to make a perfectly rational technology decision: I looked for what was *hot*, checked GitHub trends, and found **[Omarchy](https://omarchy.org/)**.
+
+## What the hell is Omarchy?
+
+Omarchy is a Linux environment based on [Arch Linux](https://archlinux.org/) and [Hyprland](https://wiki.hypr.land/), with a clear philosophy: much of the system is keyboard-driven, applications automatically use the available space, and the desktop stays visually clean.
+
+My first reaction was:
+
+> This looks suspiciously beautiful for Linux.
+
+For years, I had tacitly accepted a universal law:
+
+**Linux can be powerful or beautiful, but attempting both requires sacrificing several weekends.**
+
+Omarchy seemed determined to break that rule. Apple Silicon support was also available thanks to the enormous effort behind [Asahi Linux](https://asahilinux.org/).
+
+I had a MacBook, free disk space, and curiosity. Clearly, I had to do something irresponsible =).
+
+## The moment we start sweating again...
+
+Installation was straightforward, except for one small detail: resizing the macOS partition.
+
+Watching the resize process immediately brought back my university years—especially the occasions when, while experimenting with Linux partitions, I erased operating systems I had absolutely not intended to erase.
+
+Some knowledge never leaves you. Neither does trauma.
+
+The difference today is that almost everything important is in the cloud. My code is on GitHub, documents are synchronized, scientific data is on servers, and photos are backed up. The real risk was far smaller than it was twenty years ago.
+
+Still, watching a tool modify the partitions on the disk containing your digital life produces a healthy amount of adrenaline.
+
+I finished the installation, rebooted, selected Linux in the bootloader, and it worked.
+
+That first boot produced an interesting mixture of satisfaction and:
+
+> Well... apparently I didn't erase macOS.
+
+Success.
+
+## For the first time, I found Linux genuinely beautiful
+
+This was probably my first major surprise. Omarchy is **beautiful**.
+
+Not beautiful “considering it is Linux.” Beautiful. Period.
+
+The typography. The spacing. The terminals. The animations. The visual consistency. Dark mode. The way windows appear. Everything has a coherent aesthetic.
+
+For someone who had tried to build something similar with Enlightenment years earlier, it was impressive that all of this was simply there.
+
+But the most interesting part was not its appearance. It was the window system.
+
+## Where did Hyprland come from?
+
+At first, you have to forget certain habits. On macOS, I had years of muscle memory: `Command + Tab`, Mission Control, floating windows stacked on top of one another, dragging, resizing, and hunting for a particular application.
+
+Omarchy uses Hyprland and a tiled-window model.
+
+> In the 2000s, I tried to build this desktop with Enlightenment; twenty years later, I discovered that Hyprland was what I had been looking for.
+
+Open something and the system finds a place for it. Open something else and the space reorganizes. Change workspaces, move windows, and close applications from the keyboard. Almost everything happens without touching the mouse.
+
+Unexpectedly, **this feels much more natural to me than a traditional desktop**.
+
+For years, I stopped considering Linux a real desktop alternative. I still used it daily on servers and clusters, but in my mind it remained frozen as the system I had left when I moved to macOS.
+
+Hyprland showed me how much Linux had changed while I was, paradoxically, still using it every day—just on the other side of an SSH connection.
+
+Almost immediately, I had something like:
+
+```text
+Workspace 1 → code
+Workspace 2 → terminals and cluster
+Workspace 3 → browser and papers
+Workspace 4 → ChatGPT
+Workspace 5 → everything else
+```
+
+and I was jumping among them almost without thinking. It is fast. Very fast. The computer stops feeling like a collection of windows and starts feeling like a set of workspaces.
+
+Perhaps this is a newcomer's enthusiasm, but it is one of the things that has impressed me most.
+
+## The small problem with SUPER + W
+
+Changing 16 years of muscle memory has consequences.
+
+On macOS, `Command + W` closes the active tab or window. In Omarchy, `SUPER + W` closes the application.
+
+For the first few days, whenever I wanted to close a Chromium tab, my fingers repeated the gesture learned over years on macOS—and closed the entire application.
+
+Not the tab. The application.
+
+I had also misunderstood another shortcut: I thought `SUPER + T` would open a terminal. In Omarchy, it actually toggles the window state.
+
+So the problem was not filling the desktop with new terminals. It was more efficient than that: I abruptly closed whichever application I was using.
+
+After 16 years, muscle memory needs time to accept that `Command` and `SUPER` do not speak precisely the same language.
+
+The brain is still migrating.
+
+## The hardware... simply works
+
+This may contrast most sharply with my memories of Linux. Twenty years ago, installing Linux often meant opening diplomatic negotiations with the hardware: graphics card, drivers, Wi-Fi, audio, suspend, brightness. Something always refused to cooperate, and GPUs deserved their own category of suffering.
+
+That is why discovering how much ***everything has changed*** surprised me.
+
+Omarchy recognized practically all my hardware, including the GPU. I quickly began testing **local LLMs** with graphics acceleration.
+
+A language model running locally on a Mac GPU—in Arch Linux—and working would have sounded like science fiction during my first Linux era.
+
+There were small things to configure. Keyboard illumination initially misbehaved, brightness keys needed configuration, and the time zone briefly decided Chile was elsewhere on the planet. But these problems were small and, more importantly, **understandable**.
+
+Not weeks spent compiling a driver found on a Russian forum.
+
+Linux has changed enormously.
+
+## Rebuilding my computer was surprisingly easy
+
+Then came a revealing experiment: what do I really need to reconstruct my digital life?
+
+GitHub. Configured.
+
+Google Drive. Accessible.
+
+Apple Music. Opened in Chromium. It worked immediately.
+
+Omarchy can install web apps as ordinary applications, so Apple Music became a standalone app. The same happened with ChatGPT and YouTube.
+
+Python and `uv`. Done.
+
+Git. GitHub CLI. SSH. Nextflow. LaTeX. Quarto. Access to the clusters.
+
+In very little time, I had nearly my entire working environment again. This would have been far more traumatic 16 years ago. The cloud completely changed what reinstalling a computer means.
+
+## Linux configuring Linux with help from AI
+
+One particularly entertaining part of this experience is how I configured Omarchy.
+
+Install something. Encounter a problem. Ask ChatGPT. Change a setting. It works. Move on.
+
+At some point, I realized I was using ChatGPT inside Omarchy to learn how to configure Omarchy while Omarchy ran local AI tools.
+
+It is a kind of computational bootstrap for 2026—and a demonstration of why I wanted this change.
+
+**Linux + terminal + LLM** feels extremely natural.
+
+A chatbot explains a configuration. I open the file, modify it, test it, show the error, and correct it. Everything happens in a very short loop.
+
+LLMs also reduce one of Linux's historical barriers: the bits of specific knowledge needed to solve hundreds of different problems.
+
+Before: Google. Stack Overflow. [ArchWiki](https://wiki.archlinux.org/). Three contradictory posts—one written in 2014, another saying “solved” without explaining how.
+
+Now I can often begin simply by asking. The model can be wrong, of course, but as an interface for exploring the system it is extraordinarily useful.
+
+Chatbots make Linux **far more accessible than it was during my first era using it**.
+
+## My daughters have another explanation
+
+My daughters saw the new desktop: terminals, keyboard-driven windows, text everywhere, dark background. They quickly delivered their diagnosis:
+
+> Dad, it looks like a hacker's computer.
+
+I did not argue. After twenty years working in bioinformatics and genomics, I had apparently finally made my computer match the cinematic portrayal of my profession.
+
+## So, am I deleting macOS?
+
+No. Not yet.
+
+This is probably the least romantic but most reasonable part of the story. There is still testing to do: external displays, peripherals, projectors, and the small hardware details that only appear over time. The audio sometimes crackles and does not feel particularly high quality.
+
+I want to know how it behaves after weeks and months, not only during the honeymoon of the first few days.
+
+There is another important problem: **I still cannot find a laptop beautiful enough to replace my MacBook.**
+
+Apple makes absurdly good hardware. My problem was never the computer.
+
+For now, I have both. macOS remains there. So does Omarchy. I can boot either one. The difference is that during these first few days, I have not felt much desire to return to macOS.
+
+## After Fedora, Debian, Ubuntu, Enlightenment, and macOS...
+
+I have tried enough systems not to declare eternal love for a distribution after 48 hours: Fedora, Debian, Ubuntu, different desktops, Enlightenment, and macOS for more than a decade.
+
+On Linux desktops, I always found some combination of functionality, aesthetics, and usability that did not quite convince me. Omarchy is the first time in a long while that I feel something different.
+
+Arch provides an enormous ecosystem. Hardware detection is incomparably better than in the Linux I remember. Hyprland completely changed my perception of how a desktop should work. Integration with modern tools is excellent.
+
+And, surprisingly importantly: **it is beautiful.** Very beautiful.
+
+For now, the combination of power, simplicity, usability, and aesthetics has me quite excited. We will see how long that lasts.
+
+> A beautiful system is a motivating system, and motivation brings ideas to life, like this blog!
+
+## Returning, but to a different Linux
+
+Strangely, I do not feel that I have returned to the Linux I left in 2010. That system no longer exists.
+
+Hardware changed. The cloud changed where our data lives. GitHub changed how we manage code. Clusters changed how we do scientific computing. LLMs are changing how we program and interact with computers. Linux changed too.
+
+Perhaps that is why returning after so many years feels surprisingly natural. My personal computer now speaks almost the same language as the clusters where I work every day. The keyboard has become the primary interface again. The system gets out of the way.
+
+And when I need to understand something, I probably have the best Linux documentation that has ever existed—plus a chatbot willing to accompany me while I inevitably break something.
+
+## And that is what this blog will be about
+
+This migration also motivated me to do something I had considered for a long time: write about the small adventures surrounding my work.
+
+Not only finished papers, but also the things normally left out: an analysis idea, an algorithm, a strange genomics problem, a genome assembly that refuses to cooperate, a cluster, an interesting paper, an experiment with an LLM, a Linux configuration, a good figure, or an idea that seemed brilliant at 11 p.m. and considerably less brilliant the next morning.
+
+Much of computational biology happens precisely there—in that mixture of science, programming, computers, experimentation, and curiosity.
+
+So this blog appropriately begins with a migration, a change, an action.
+
+After roughly 16 years using macOS as my main desktop, I returned to Linux. This time on an M1 Pro MacBook. With Omarchy.
+
+The window system fascinates me. The GPU works. Local LLMs work. Apple Music works. I did not accidentally erase the disk.
+
+And my daughters think I am now a hacker.
+
+For the moment, I consider the experiment a success.
+
+![My Omarchy desktop: the digenoma site, Apple Music, terminals, and monitoring tools arranged with Hyprland.](figures/omarchy-desktop.png){fig-alt="Omarchy desktop on a MacBook with the digenoma site, Apple Music, and several tiled terminals" width="100%"}

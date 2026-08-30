@@ -1,0 +1,7 @@
+/_site/
+/en/_site/
+/es/_site/
+/en/language-switch.js
+/es/language-switch.js
+**/.quarto/
+.DS_Store

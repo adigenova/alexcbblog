@@ -1,0 +1,12 @@
+---
+title: "Biología computacional y computación científica"
+description: "Biología computacional en terreno."
+toc: false
+---
+
+Notas sobre biología computacional, genómica, bioinformática, HPC, programación,
+Linux y el oficio práctico de la computación científica.
+
+## Publicaciones recientes
+
+Los nuevos artículos aparecerán en el [blog](blog.qmd).

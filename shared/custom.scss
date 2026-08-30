@@ -1,0 +1,22 @@
+/*-- scss:defaults --*/
+$font-family-sans-serif: system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-family-monospace: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+$body-font-size: 1.04rem;
+$line-height-base: 1.65;
+
+/*-- scss:rules --*/
+body { text-rendering: optimizeLegibility; }
+main { max-width: 78ch; }
+.navbar-brand { font-weight: 650; letter-spacing: -0.015em; }
+.navbar .language-switch {
+  border: 1px solid currentColor;
+  border-radius: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.18rem 0.42rem !important;
+}
+.description, .listing-description { color: var(--bs-secondary-color); }
+pre { border-radius: 0.35rem; }
+a { text-underline-offset: 0.16em; }
+@media (max-width: 575.98px) { main { font-size: 0.98rem; } }

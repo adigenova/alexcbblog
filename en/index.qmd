@@ -1,0 +1,12 @@
+---
+title: "Computational biology and scientific computing"
+description: "Computational biology in the wild."
+toc: false
+---
+
+Notes on computational biology, genomics, bioinformatics, HPC, programming,
+Linux, and the practical craft of scientific computing.
+
+## Recent writing
+
+New articles will appear on the [blog](blog.qmd).

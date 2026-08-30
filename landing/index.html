@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>digenoma</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color-scheme: light dark; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; }
+    main { width: min(34rem, calc(100% - 3rem)); text-align: center; }
+    h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin-bottom: .5rem; letter-spacing: -.04em; }
+    p { opacity: .72; line-height: 1.6; }
+    nav { display: flex; justify-content: center; gap: .75rem; margin-top: 2rem; }
+    a { border: 1px solid currentColor; border-radius: .35rem; color: inherit; padding: .65rem 1.15rem; text-decoration: none; }
+    a:hover, a:focus { background: currentColor; color: Canvas; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>digenoma</h1>
+    <p>Computational biology in the wild.</p>
+    <nav aria-label="Choose a language / Elige un idioma">
+      <a href="en/" lang="en">English</a>
+      <a href="es/" lang="es">Español</a>
+    </nav>
+  </main>
+</body>
+</html>
