@@ -61,3 +61,7 @@ Settings → Pages → Build and deployment → Source → GitHub Actions
 ```
 
 No `gh-pages` branch is used.
+
+ we now have the blog online
+
+
