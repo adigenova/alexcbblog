@@ -1,0 +1,369 @@
+---
+title: "Omarchy, parte 2: hermoso, disfrutable… y todavía nada fácil de configurar"
+description: "Dos semanas con Omarchy en un MacBook M1 Pro: trabajo científico, Wi-Fi, eduroam, VPN y 20–30 horas de configuración que valieron la pena."
+author: adigenova
+date: 2026-09-11
+draft: false
+categories:
+  - Linux
+  - Omarchy
+  - Biología Computacional
+---
+
+*Dos semanas después, sigo usando Omarchy. De hecho, cada vez entro menos a macOS. Eso probablemente resume bastante bien esta segunda parte.*
+
+En la [primera parte](../2026-08-30-macos-to-omarchy/index.qmd) conté algo que todavía me sorprende: tardé demasiado en descubrir que Linux podía convertirse en un escritorio que realmente quisiera usar todos los días. No como experimento, no como servidor con ventanas, no como una máquina donde uno abre un terminal para sentirse intelectualmente superior. Como **desktop**.
+
+Omarchy, Hyprland y todo este ecosistema cambiaron bastante esa percepción.
+
+Después vino la segunda etapa.
+
+La etapa en que uno deja de admirar las animaciones, los escritorios en mosaico y esa sensación maravillosa de que cada ventana aparece exactamente donde debería… y empieza a preguntarse cosas mucho menos románticas:
+
+> ¿Por qué no funciona el Wi-Fi?
+
+O:
+
+> ¿Por qué mi mouse, que lleva quince años funcionando con todo lo que existe en el planeta, decidió hoy que Linux no merece conocerlo?
+
+Bienvenidos a Omarchy, parte 2.
+
+## La luna de miel terminó. Sigo enamorado.
+
+Mi instalación es particularmente poco razonable: un **MacBook Pro M1 Pro**, corriendo Linux sobre Apple Silicon con Asahi, Omarchy y Hyprland.
+
+Es decir, elegí voluntariamente una combinación en la que podía culpar alternativamente a Linux, Arch, Omarchy, Hyprland, Asahi, Broadcom, Apple o a mí mismo.
+
+Y durante las últimas dos semanas todos tuvieron su momento.
+
+Cada problema que resolvía hacía que la máquina quedara un poco más mía.
+
+Y eso resulta peligrosamente adictivo.
+
+## De “qué bonito” a “quiero trabajar aquí”
+
+El verdadero test no era conseguir un wallpaper bonito ni mover ventanas con `SUPER + algo`.
+
+Era poder trabajar.
+
+Necesitaba R, RStudio, LaTeX, Slack, Google Drive, mis notas, mis tareas, SSH, VPN, monitores externos, audio, teclado, mouse, dictado por voz y todas esas pequeñas cosas que en macOS uno da por hechas precisamente porque deje de pensar en ellas hace diez años.
+
+Sorprendentemente, todo terminó funcionando.
+
+RStudio ARM quedó instalado y funcionando con mi R nativo. Configuré LuaLaTeX para documentos y clases. 
+Recuperé mi repositorio de `dstask`, así que también recuperé años de tareas e historial. 
+Instalé Slack. Dejé VoxType funcionando para dictado en español. 
+Configuré mis accesos SSH. 
+Mis dos cuentas de Google Drive quedaron montadas con `rclone` y servicios de `systemd`, de modo que aparecen como si fueran parte normal del sistema.
+
+Incluso Apple Music terminó viviendo aquí.
+
+En algún momento me di cuenta de que ya no estaba “probando Linux”.
+
+Estaba trabajando en Linux.
+
+## Google Drive: inesperadamente mejor que en mac.
+
+Una de las configuraciones que más me gustó fue Google Drive.
+
+En vez de instalar otra aplicación pesada que pretende ser un pequeño sistema operativo dentro de mi sistema operativo, terminé usando `rclone`, puntos de montaje y servicios de usuario de `systemd`.
+
+Tengo mi Drive personal y mi Drive institucional disponibles directamente desde el filesystem.
+
+Y funcionan.
+
+Es absurdamente Unix y absurdamente satisfactorio.
+
+En macOS nunca había pensado demasiado en cómo funcionaba Google Drive. Aquí terminé pensando:
+
+> Ah… así es como *quiero* que funcione Google Drive.
+
+Este tipo de pequeñas victorias explica bastante bien por qué sigo aquí.
+
+## Después vino la VPN institucional
+
+Para conectarme remotamente a Kütral necesitaba la VPN de la universidad.
+
+FortiClient, naturalmente, no era precisamente la opción más atractiva en esta plataforma.
+
+Terminamos configurando **strongSwan**, usando `swanctl`, IKEv1 y la configuración necesaria para hablar con el FortiGate institucional.
+
+Funcionó.
+
+Como no quiero tener una VPN corriendo permanentemente, quedó además con scripts para iniciarla y detenerla cuando la necesito.
+
+Otra pieza menos que requiere macOS.
+
+## Y entonces apareció el Wi-Fi
+
+Aquí comenzó el verdadero entretenimiento.
+
+Mi Mac usa un Broadcom BCM4387. En condiciones normales funciona. En condiciones menos normales, el firmware parece entrar en una dimensión paralela.
+
+El síntoma era maravilloso:
+
+```text
+Failed to reserve space in commonring
+scan error (-12)
+```
+
+Y desaparecían todas las redes Wi-Fi.
+
+No “no puedo conectar”.
+
+No.
+
+**El computador dejaba de creer que existía el concepto de Wi-Fi.**
+
+Después de bastante investigación encontramos que el driver `brcmfmac` podía quedar bloqueado. La solución práctica terminó siendo recargar completamente el módulo:
+
+```bash
+sudo systemctl stop NetworkManager
+sudo modprobe -r brcmfmac_wcc
+sudo modprobe -r brcmfmac
+sudo modprobe brcmfmac
+sudo systemctl start NetworkManager
+```
+
+Como cualquier persona sensata que ha aceptado ya su destino, convertí eso en:
+
+```bash
+wifi-reset
+```
+
+Y seguimos adelante.
+
+## Eduroam: un problema dentro del problema
+
+Por supuesto, recuperar el Wi-Fi no significaba que eduroam funcionara.
+
+Durante bastante tiempo parecía que el problema seguía siendo el driver. Podíamos ver la red, intentar asociarnos y eventualmente todo volvía a morir.
+
+Probamos configuraciones PEAP/MSCHAPv2.
+
+Nada.
+
+Finalmente descargué el instalador Linux oficial de eduroam entregado por la Universidad de O'Higgins y ahí apareció la respuesta.
+
+La configuración correcta para funcionarios UOH era:
+
+```text
+EAP: TTLS
+Phase 2: PAP
+Identity: usuario@uoh.cl
+Anonymous identity: anonymous@uoh.cl
+```
+
+Más el certificado CA institucional y los nombres de los servidores RADIUS.
+
+En otras palabras, llevábamos un rato negociando elegantemente con el servidor equivocado usando el protocolo equivocado.
+
+Instalamos el perfil oficial.
+
+Reiniciamos el driver.
+
+Aparecieron los access points.
+
+Ejecuté:
+
+```bash
+nmcli --ask connection up eduroam
+```
+
+y apareció una de las frases más hermosas de la informática:
+
+```text
+Connection successfully activated
+```
+
+Después resolvimos un detalle adicional: el instalador CAT esperaba que un *secret agent* del escritorio almacenara la contraseña. Omarchy no lo estaba haciendo, así que NetworkManager preguntaba las credenciales cada vez.
+
+Configuramos la credencial de forma persistente.
+
+Ahora:
+
+```bash
+nmcli connection up eduroam
+```
+
+simplemente funciona.
+
+No debería emocionarme tanto por conectarme a una Wi-Fi.
+
+Pero aquí estamos.
+
+## Bluetooth, sorprendentemente, decidió cooperar
+
+Después del Wi-Fi esperaba dedicar otra tarde completa a Bluetooth.
+
+No ocurrió.
+
+Mi Magic Keyboard apareció.
+
+Mi Magic Mouse apareció.
+
+Ambos conectaron.
+
+Después puse mis Soundcore Q20i en pairing:
+
+```text
+soundcore Q20i
+```
+
+conectar, confiar, listo.
+
+PipeWire los reconoció inmediatamente como sink y source, WirePlumber los dejó como salida predeterminada y terminé con audio Bluetooth funcionando.
+
+Después de eduroam, se sintió casi ofensivamente fácil.
+
+## Los monitores también tuvieron su capítulo
+
+Hyprland es extraordinariamente flexible con monitores.
+
+La parte menos extraordinaria es que uno tiene que decirle exactamente qué quiere.
+
+Configuré la pantalla interna del MacBook, posición, escalado y después mi ASUS 4K externo.
+
+Cuando uno consigue el layout correcto y Hyprland empieza a ubicar todo exactamente donde corresponde, es difícil volver atrás.
+
+Hay algo tremendamente agradable en abrir aplicaciones y que el desktop parezca saber lo que uno quiere hacer.
+
+No porque haya “IA”.
+
+Porque uno lo configuró.
+
+Una idea antigua y aparentemente revolucionaria.
+
+## El curioso efecto secundario: macOS empezó a sentirse viejo
+
+Esto no me lo esperaba.
+
+Todavía tengo macOS. No tengo ninguna intención de borrarlo.
+
+Pero cada vez entro menos.
+
+Y cuando vuelvo, macOS no se siente malo. Sigue siendo extremadamente pulido, consistente y confiable.
+
+Simplemente empieza a sentirse… **viejo**.
+
+No viejo visualmente.
+
+Viejo en la forma de interactuar con las ventanas.
+
+Empiezo a mover ventanas manualmente y pienso:
+
+> ¿Por qué estoy haciendo esto?
+
+Busco algo, cambio de escritorio, reorganizo aplicaciones y de pronto echo de menos que Hyprland simplemente coloque las cosas donde deben estar.
+
+Es probablemente el mejor indicador de que Omarchy funcionó conmigo.
+
+El desktop dejó de ser decoración y empezó a convertirse en una herramienta.
+
+## ¿Cuánto tiempo me costó todo esto?
+
+No llevé un cronómetro, pero mirando nuestras sesiones de configuración entre fines de agosto y el 11 de septiembre, mi estimación razonable es de **unas 20–30 horas de trabajo real**.
+
+No consecutivas, afortunadamente.
+
+Fueron repartidas durante aproximadamente dos semanas: sesiones cortas para configurar algo sencillo, otras de una o dos horas y algunos agujeros negros como Wi-Fi/eduroam en los que el tiempo adquiere propiedades cuánticas.
+
+En ese proceso terminamos tocando, entre otras cosas:
+
+* Omarchy/Hyprland, monitores, shortcuts y aplicaciones; R/RStudio, LaTeX y herramientas científicas; Google Drive con `rclone`; Slack, notas, `dstask` y VoxType; SSH y VPN institucional; Wi-Fi/eduroam; Bluetooth, teclado, mouse y audio; y varias pequeñas cosas que normalmente sólo descubres que necesitas cuando dejan de funcionar.
+
+¿Son 20–30 horas demasiado para tener un desktop funcional?
+
+Absolutamente.
+
+¿Lo recomendaría a alguien que sólo quiere abrir el computador y trabajar cinco minutos después?
+
+Probablemente no.
+
+¿Me arrepiento?
+
+Tampoco.
+
+## Beautiful, enjoyable… but still not easy
+
+Creo que esa es mi evaluación actual de Omarchy.
+
+**Beautiful?** Sí.
+
+**Enjoyable?** Muchísimo.
+
+**Easy?**
+
+Bueno…
+
+No nos pongamos creativos con las definiciones.
+
+La diferencia importante es que muchos de los problemas que encontré no son realmente “Omarchy bugs”.
+
+Estoy usando Arch sobre Apple Silicon, hardware diseñado específicamente para otro sistema operativo, un stack gráfico moderno, un driver Broadcom todavía con sus particularidades, eduroam institucional, VPN corporativa y varios periféricos Apple.
+
+No es exactamente el camino de menor resistencia.
+
+Y aun así, funciona.
+
+Eso quizá es lo más impresionante.
+
+
+## ¿Y por qué de repente hablo en plural?
+
+A estas alturas del artículo probablemente se nota que varias veces digo *“encontramos”*, *“configuramos”* o *“resolvimos”*.
+
+No es plural majestático. 😄
+
+Gran parte de esta instalación la hice acompañado por ChatGPT. Yo estaba frente al computador ejecutando comandos, rompiendo cosas y comprobando si efectivamente funcionaban; pero buena parte del diagnóstico, búsqueda de alternativas y construcción paso a paso de las configuraciones la fui haciendo conversando con un modelo.
+
+Y creo que eso fue bastante importante en esta experiencia.
+
+Podría haber llegado solo a strongSwan, `rclone`, NetworkManager, `brcmfmac`, PipeWire, Hyprland y al misterioso universo de eduroam. Toda la información existe. El problema es el **tiempo**.
+
+Mi trabajo normal no consiste en pasar una tarde averiguando por qué un Broadcom dejó de escanear redes después de intentar asociarse a un access point. Tengo investigación, clases, estudiantes, proyectos y una cantidad bastante limitada de horas disponibles para convencer a un notebook de que se conecte al Wi-Fi.
+
+Sin esta ayuda, sospecho que en alguno de esos puntos habría hecho lo más racional:
+
+```text
+reboot → macOS → seguir trabajando
+```
+
+y probablemente la historia de Omarchy habría terminado ahí.
+
+En cambio, poder pegar un log, discutir un problema, probar una solución, descartarla y continuar desde el punto anterior redujo muchísimo la fricción. No eliminó el trabajo ,yo seguía teniendo que entender qué estábamos cambiando y ejecutar todo en una máquina bastante particular, pero convirtió problemas que podían consumir una tarde completa en sesiones manejables.
+
+Quizás esa sea también una parte interesante de usar Linux en 2026: **Linux no se volvió mágicamente fácil; cambió radicalmente la ayuda disponible para aprender a configurarlo y usarlo.**
+
+Y eso hace que sistemas como Omarchy sean accesibles para personas que tienen curiosidad suficiente para meterse en problemas, pero no necesariamente tiempo infinito para resolverlos.
+
+
+
+## ¿Me quedo?
+
+Sí.
+
+Pensé que esta segunda parte podía terminar siendo el artículo donde explicaba por qué volvía tranquilamente a macOS después de divertirme un par de semanas.
+
+Ocurrió lo contrario.
+
+Ahora tengo un sistema donde puedo programar, escribir papers, preparar clases, conectarme al cluster, usar RStudio, montar mis Drives, entrar a la VPN, trabajar con mis tareas, usar mi monitor, teclado, mouse y audífonos.
+
+Y cada día necesito menos entrar a macOS.
+
+La configuración fue más difícil de lo que debería ser.
+
+Pero una vez terminada, trabajar aquí es **mucho más entretenido de lo que esperaba**.
+
+Y quizás esa sea la parte que más había olvidado después de tantos años usando computadores:
+
+configurar un computador también puede ser divertido.
+
+Incluso cuando a las 2 AM estás intentando explicarle a un Broadcom BCM4387 que, efectivamente, existen redes Wi-Fi.
+
+**El esfuerzo valió la pena.**
+
+Y sí.
+
+ Me quedo con Omarchy.
+
