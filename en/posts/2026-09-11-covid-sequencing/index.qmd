@@ -1,0 +1,266 @@
+---
+title: "How a sequencing mistake turned us into COVID experts… a little late 🤣"
+description: "An oversized flow cell, 96 Chilean samples, and more than two billion reads: how a mistake opened a window into SARS-CoV-2 evolution within hosts."
+author: adigenova
+date: 2026-09-11
+draft: false
+categories:
+  - SARS-CoV-2
+  - Genomics
+  - Computational Biology
+---
+
+*The story of how an oversized flow cell, nearly 100 samples, and an absurd number of reads turned into a paper on within-host evolution of SARS-CoV-2.*
+
+It all began, as some of the best scientific stories do, with impeccable experimental planning.
+
+That is a lie.
+
+It all began with a mistake.
+
+It was 2023, and we were testing the **DNBSeq-G400** at the Universidad de O'Higgins. We had a set of SARS-CoV-2 samples and wanted to test the instrument, library preparation, and the entire sequencing workflow.
+
+So far, nothing particularly exciting.
+
+The small detail was that we used a **much larger flow cell than we needed**.
+
+Much larger.
+
+When the run finished, we discovered that we had sequenced nearly 100 COVID samples at an average depth close to **60,000×**. The published study ultimately includes 96 Chilean samples collected between 2020 and 2022. ([Nature][1])
+
+To put that into perspective: you do not need anything remotely close to that depth to identify the dominant SARS-CoV-2 variant in a sample.
+
+We basically had a very scientific problem:
+
+> **What the hell do we do with all these reads?**
+
+## The mistake started looking less and less like a mistake
+
+The first option was simply to accept that we had sequenced far more than necessary, assemble the consensus genomes, and get on with our lives.
+
+But that was rather boring.
+
+Because a depth of 60,000× lets you do something different.
+
+Normally, when we carry out genomic surveillance of a virus, we reconstruct its **consensus genome**: the sequence representing the predominant variant in a patient.
+
+It is tremendously useful. That is how we tracked the emergence and replacement of variants during the pandemic.
+
+But it has an important conceptual limitation.
+
+An infected person does not contain **one perfectly identical virus repeated millions of times**.
+
+There is a viral population within the same host.
+
+And within that population, mutations can appear in, for example, 1%, 5%, 10%, or 20% of the viruses. Those minority variants disappear when we look only at the consensus.
+
+With absurdly deep sequencing, however, we could start to see them.
+
+That was when the experimental mistake became a scientific question:
+
+> **What is happening to SARS-CoV-2 inside each infected person?**
+
+And that turned out to be much more interesting than the experiment we originally wanted to do.
+
+## Two billion reads later…
+
+The run produced **more than two billion reads**.
+
+Then came the less cinematic part of science: quality control, filters, more filters, being suspicious of everything, filtering again, and treating every low-frequency variant as guilty until proven innocent.
+
+This was particularly important because when you search for minority variants, there is an unpleasant question:
+
+> “Is this biology or a sequencing error?”
+
+That is why we used deliberately conservative criteria.
+
+After the entire process, we were left with **2,890 intra-host single-nucleotide variants**, or iSNVs, with enough evidence to analyze them. Most occurred at low or intermediate frequencies, and the most common change was C→T, a pattern also observed in other studies of SARS-CoV-2 diversity within hosts. ([Nature][1])
+
+Suddenly, that unnecessarily large flow cell no longer seemed like such a bad idea.
+
+Conveniently, years later we can call it:
+
+**unplanned exploratory experimental design**.
+
+It sounds much better than “we used the wrong flow cell.”
+
+## The virus generates lots of ideas. Selection eliminates most of them.
+
+One of the questions that interested me most was whether we could observe natural selection taking place within the patients themselves.
+
+And the answer was yes.
+
+When we compared synonymous and nonsynonymous mutations, the overall pattern was fairly clear: within-host evolution of SARS-CoV-2 was dominated by **purifying selection**. ([Nature][1])
+
+In less evolutionary language:
+
+the virus constantly tries things out.
+
+Most are bad ideas.
+
+And they disappear.
+
+I find this particularly beautiful because we tend to think about viral evolution by looking at variants that managed to spread across countries or continents.
+
+Here, we were looking at an earlier stage.
+
+Mutations that have just appeared.
+
+Small evolutionary experiments taking place inside a person.
+
+The vast majority will never go anywhere.
+
+But not all regions of the genome behaved the same way. **Spike and some accessory genes** showed greater enrichment of protein-altering changes, although these signals need to be interpreted carefully and do not automatically mean we are observing a future variant of concern. ([Nature][1])
+
+It is a snapshot of the earliest stages of evolution before selection at the population level does its work.
+
+## And some patients apparently carried more than one lineage
+
+Then something else interesting appeared.
+
+If you have enough depth, you can look for mutations characteristic of a second viral lineage present at low frequency.
+
+We found **13 samples consistent with possible co-infections**: a dominant lineage accompanied by signals corresponding to another lineage at a lower proportion. The cases occurred at times compatible with periods of variant overlap or replacement in Chile. ([Nature][1])
+
+This is interesting because a co-infection creates a rather unusual evolutionary situation.
+
+Two distinct viral populations sharing a host.
+
+That potentially increases opportunities for diversification and, under certain circumstances, recombination.
+
+It does not mean that every co-infection will produce the next major viral lineage.
+
+Fortunately, evolution does not work like a Marvel movie either.
+
+But these are interesting situations for studying how diversity arises.
+
+## A short journey through Chile's pandemic
+
+The dataset had another nice feature.
+
+The 96 samples came from Chile between **2020 and 2022**, spanning different stages of the pandemic and the replacement of different lineages, from early variants through Lambda, Delta, and finally Omicron. ([Universidad de O'Higgins][2])
+
+That allowed us to look back at something we had seen during the pandemic almost exclusively from an epidemiological perspective:
+
+one variant appears.
+
+another increases.
+
+another disappears.
+
+Omicron arrives and changes everything.
+
+But beneath those enormous population dynamics, another, much smaller process was continuously taking place inside each patient.
+
+Thousands of small variants appearing and disappearing.
+
+Traditional genomic surveillance shows the final result.
+
+Ultra-deep sequencing lets us observe part of the evolutionary laboratory that comes before it.
+
+## And all of this was done at UOH
+
+There is another part of this work that I particularly like.
+
+The project was carried out almost from beginning to end at the **Universidad de O'Higgins**.
+
+Library preparation.
+
+Sequencing.
+
+Bioinformatics processing.
+
+Analysis.
+
+Interpretation.
+
+The computational processing ran on our HPC infrastructure in Kütral; the main workflow alone accumulated approximately **1,500 CPU hours**. ([Universidad de O'Higgins][2])
+
+When I arrived at UOH, building local capabilities in genomics and computational biology was precisely one of the things I wanted to do.
+
+That is why, for me, this paper also tells another story.
+
+Not just that we can study SARS-CoV-2.
+
+But that today we can take samples, generate billions of reads, process them on our own infrastructure, and carry the analysis through to an international publication **from Rancagua**.
+
+That probably excites me even more than the 60,000×.
+
+## Four years later: we are COVID experts 🤣
+
+The paper finally appeared in **Scientific Reports on August 31, 2026**, with Carol Moraga, Francisco Kirhman, Barbara Bernal, Sofia Poblete, Pastor Jullian, Adrian Gonzalez, Mauricio Latorre, and yours truly. ([Nature][1])
+
+The funny part is the timing.
+
+In 2020, everyone wanted to know about COVID.
+
+In 2021, we were all talking about variants.
+
+In 2022, we were still discussing Omicron.
+
+We published our big analysis of within-host evolution in…
+
+**2026.**
+
+🤣
+
+So we can officially announce that:
+
+> **we are COVID experts too.**
+
+A little late.
+
+But experts. 😂
+
+Joking aside, I think the result remains relevant precisely because the question goes beyond SARS-CoV-2.
+
+The next epidemic may arrive under a different name.
+
+And the same questions will come up again: how to detect emerging diversity, how to distinguish real mutations from noise, how to identify mixed infections, and how to observe evolutionary processes before they become visible at the population level.
+
+What matters is that we now have the experimental and computational capacity to answer those questions—and the know-how too!
+
+## The scientific moral of the story
+
+I like this work because it captures something that happens in science more often than we tend to admit in papers.
+
+The project did not begin with:
+
+> “Our hypothesis is that ultra-deep sequencing will allow us to characterize…”
+
+It began more like this:
+
+> “Hey… why do we have so much coverage?”
+
+🤣
+
+Then came the question.
+
+Then the analysis.
+
+Then several iterations, filters, discussion, bioinformatics, statistics, and quite a bit of time trying to understand what the data were telling us.
+
+And finally, a scientific story emerged that **we had not planned to find**.
+
+Perhaps that is my favorite part.
+
+In science, we try to control everything: hypotheses, experimental design, protocols, sample sizes, pipelines.
+
+And that is how it should be.
+
+But every now and then, you make a mistake, end up with a ridiculous amount of data, and discover that the really interesting question was hiding right there.
+
+This time, we got lucky.
+
+**We used a flow cell that was too large.**
+
+We ended up watching SARS-CoV-2 evolve within Chilean patients.
+
+And three years later, we had a paper.
+
+I do not recommend turning this into an experimental methodology.
+
+But it worked. 🤣
+
+[1]: https://www.nature.com/articles/s41598-026-59521-8
+[2]: https://www.uoh.cl/investigacion-desarrollada-en-la-uoh-revela-la-diversidad-oculta-del-sars-cov-2/

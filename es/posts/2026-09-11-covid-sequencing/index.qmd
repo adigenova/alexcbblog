@@ -1,0 +1,266 @@
+---
+title: "Cómo un error de secuenciación nos convirtió en expertos en COVID… un poco tarde 🤣"
+description: "Una flowcell demasiado grande, 96 muestras chilenas y más de dos mil millones de reads: cómo un error abrió una ventana a la evolución intra-hospedero de SARS-CoV-2."
+author: adigenova
+date: 2026-09-11
+draft: false
+categories:
+  - SARS-CoV-2
+  - Genómica
+  - Biología Computacional
+---
+
+*La historia de cómo una flowcell demasiado grande, casi 100 muestras y una cantidad absurda de reads terminaron convirtiéndose en un paper sobre evolución intra-hospedero de SARS-CoV-2.*
+
+Todo empezó, como empiezan algunas de las mejores historias científicas, con una planificación experimental impecable.
+
+Es mentira.
+
+Todo empezó con un error.
+
+Era 2023 y estábamos probando el **DNBSeq-G400** en la Universidad de O'Higgins. Teníamos un conjunto de muestras de SARS-CoV-2 y queríamos probar el equipo, la preparación de bibliotecas y todo el flujo de secuenciación.
+
+Hasta ahí, nada particularmente emocionante.
+
+El pequeño detalle fue que usamos una **flowcell bastante más grande de la que necesitábamos**.
+
+Mucho más grande.
+
+Cuando terminamos la corrida descubrimos que habíamos secuenciado casi 100 muestras de COVID a una profundidad promedio cercana a **60.000×**. El trabajo publicado finalmente incluye 96 muestras chilenas recolectadas entre 2020 y 2022. ([Nature][1])
+
+Para ponerlo en perspectiva: para saber cuál es la variante dominante de SARS-CoV-2 en una muestra no necesitas remotamente esa profundidad.
+
+Teníamos, básicamente, un problema muy científico:
+
+> **¿Qué diablos hacemos con todos estos reads?**
+
+## El error empezó a parecer cada vez menos error
+
+La primera posibilidad era simplemente aceptar que habíamos secuenciado mucho más de lo necesario, obtener los genomas consenso y seguir con nuestras vidas.
+
+Pero eso era bastante aburrido.
+
+Porque una profundidad de 60.000× permite hacer algo diferente.
+
+Normalmente, cuando hacemos vigilancia genómica de un virus reconstruimos su **genoma consenso**: la secuencia que representa la variante mayoritaria presente en un paciente.
+
+Es tremendamente útil. Así seguimos durante la pandemia la aparición y reemplazo de variantes.
+
+Pero tiene una limitación conceptual importante.
+
+Una persona infectada no contiene **un único virus perfectamente idéntico repetido millones de veces**.
+
+Dentro del mismo hospedero existe una población viral.
+
+Y dentro de esa población pueden aparecer mutaciones presentes, por ejemplo, en 1%, 5%, 10% o 20% de los virus. Esas variantes minoritarias desaparecen cuando miramos solamente el consenso.
+
+Con una profundidad absurda de secuenciación, en cambio, podíamos comenzar a verlas.
+
+Ahí el error experimental se convirtió en una pregunta científica:
+
+> **¿Qué está ocurriendo con SARS-CoV-2 dentro de cada persona infectada?**
+
+Y eso terminó siendo bastante más interesante que el experimento que originalmente queríamos hacer.
+
+## Dos mil millones de reads después…
+
+La corrida produjo **más de 2.000 millones de reads**.
+
+Después vino la parte menos cinematográfica de la ciencia: controles de calidad, filtros, más filtros, sospechar de todo, volver a filtrar y tratar cada variante de baja frecuencia como culpable hasta demostrar su inocencia.
+
+Esto era particularmente importante porque cuando buscas variantes minoritarias existe una pregunta desagradable:
+
+> “¿Esto es biología o es un error de secuenciación?”
+
+Por eso usamos criterios deliberadamente conservadores.
+
+Después de todo el proceso quedaron **2.890 variantes intra-hospedero**, o iSNVs, con suficiente evidencia para analizarlas. La mayoría aparecía a frecuencias bajas o intermedias y el cambio más común era C→T, un patrón que también ha sido observado en otros estudios de diversidad de SARS-CoV-2 dentro del hospedero. ([Nature][1])
+
+De pronto esa flowcell innecesariamente grande ya no parecía una tan mala idea.
+
+Convenientemente, años después podemos llamarlo:
+
+**diseño experimental exploratorio no planificado**.
+
+Suena mucho mejor que “nos equivocamos de flowcell”.
+
+## El virus genera muchas ideas. La selección elimina la mayoría.
+
+Una de las preguntas que más me interesaba era si podíamos observar selección natural ocurriendo dentro de los propios pacientes.
+
+Y la respuesta fue sí.
+
+Al comparar mutaciones sinónimas y no sinónimas, el patrón global fue bastante claro: la evolución intra-hospedero de SARS-CoV-2 estaba dominada por **selección purificadora**. ([Nature][1])
+
+En lenguaje menos evolutivo:
+
+el virus prueba cosas constantemente.
+
+La mayoría son malas ideas.
+
+Y desaparecen.
+
+Esto me parece particularmente bonito porque solemos pensar en la evolución viral mirando variantes que consiguieron expandirse por países o continentes.
+
+Aquí estábamos mirando un nivel anterior.
+
+Mutaciones que acaban de aparecer.
+
+Pequeños experimentos evolutivos ocurriendo dentro de una persona.
+
+La enorme mayoría nunca llegará a ninguna parte.
+
+Pero no todas las regiones del genoma se comportaban igual. **Spike y algunos genes accesorios** mostraban mayor enriquecimiento de cambios que modificaban proteínas, aunque estas señales deben interpretarse con cuidado y no significan automáticamente que estemos observando una futura variante preocupante. ([Nature][1])
+
+Es una fotografía de las primeras etapas de la evolución antes de que la selección poblacional haga su trabajo.
+
+## Y además había pacientes aparentemente infectados por más de un linaje
+
+Entonces apareció otra cosa interesante.
+
+Si tienes suficiente profundidad puedes buscar mutaciones características de un segundo linaje viral presentes a baja frecuencia.
+
+Encontramos **13 muestras compatibles con posibles coinfecciones**: un linaje dominante acompañado por señales correspondientes a otro linaje en menor proporción. Los casos aparecieron en momentos compatibles con periodos de superposición o reemplazo de variantes en Chile. ([Nature][1])
+
+Esto es interesante porque una coinfección crea una situación evolutiva bastante peculiar.
+
+Dos poblaciones virales distintas compartiendo hospedero.
+
+Eso potencialmente aumenta las oportunidades para diversificación y, en determinadas circunstancias, recombinación.
+
+No significa que cada coinfección vaya a producir el próximo gran linaje viral.
+
+Afortunadamente, la evolución tampoco funciona como una película de Marvel.
+
+Pero sí son situaciones interesantes para estudiar cómo se genera diversidad.
+
+## Un pequeño viaje por la pandemia chilena
+
+Había además otra característica bonita del dataset.
+
+Las 96 muestras provenían de Chile entre **2020 y 2022**, por lo que atravesaban distintas etapas de la pandemia y el reemplazo de diferentes linajes, desde variantes tempranas hasta Lambda, Delta y finalmente Ómicron. ([Universidad de O'Higgins][2])
+
+Eso nos permitía mirar retrospectivamente algo que durante la pandemia veíamos casi exclusivamente desde el punto de vista epidemiológico:
+
+una variante aparece.
+
+otra aumenta.
+
+otra desaparece.
+
+Ómicron llega y cambia todo.
+
+Pero debajo de esas enormes dinámicas poblacionales había otro proceso mucho más pequeño ocurriendo continuamente dentro de cada paciente.
+
+Miles de pequeñas variantes naciendo y desapareciendo.
+
+La vigilancia genómica tradicional muestra el resultado final.
+
+La secuenciación ultra profunda permite observar parte del laboratorio evolutivo que ocurre antes.
+
+## Y todo esto se hizo en la UOH
+
+Hay otra parte de este trabajo que me gusta particularmente.
+
+El proyecto se desarrolló prácticamente de principio a fin en la **Universidad de O'Higgins**.
+
+Preparación de bibliotecas.
+
+Secuenciación.
+
+Procesamiento bioinformático.
+
+Análisis.
+
+Interpretación.
+
+El procesamiento computacional se ejecutó usando nuestra infraestructura HPC en Kütral; sólo el workflow principal acumuló aproximadamente **1.500 horas de CPU**. ([Universidad de O'Higgins][2])
+
+Cuando llegué a la UOH, construir capacidades locales de genómica y biología computacional era precisamente una de las cosas que quería hacer.
+
+Por eso, para mí, este paper también cuenta otra historia.
+
+No solamente que podemos estudiar SARS-CoV-2.
+
+Sino que hoy podemos tomar muestras, generar miles de millones de reads, procesarlos en nuestra propia infraestructura y llevar el análisis hasta una publicación internacional **desde Rancagua**.
+
+Eso probablemente me entusiasma incluso más que los 60.000×.
+
+## Cuatro años después: somos expertos en COVID 🤣
+
+El paper finalmente apareció en **Scientific Reports el 31 de agosto de 2026**, con Carol Moraga, Francisco Kirhman, Barbara Bernal, Sofia Poblete, Pastor Jullian, Adrian Gonzalez, Mauricio Latorre y quien escribe. ([Nature][1])
+
+Lo divertido es el timing.
+
+En 2020 todos querían saber de COVID.
+
+En 2021 todos hablábamos de variantes.
+
+En 2022 todavía discutíamos sobre Ómicron.
+
+Nosotros publicamos nuestro gran análisis de evolución intra-hospedero en…
+
+**2026.**
+
+🤣
+
+Así que oficialmente podemos anunciar que:
+
+> **también somos expertos en COVID.**
+
+Un poco tarde.
+
+Pero expertos. 😂
+
+Fuera de broma, creo que el resultado sigue siendo relevante precisamente porque la pregunta va más allá de SARS-CoV-2.
+
+La próxima epidemia llegará posiblement con otro nombre.
+
+Y las mismas preguntas volverán a aparecer: cómo detectar diversidad emergente, cómo distinguir mutaciones reales de ruido, cómo identificar infecciones mixtas y cómo observar procesos evolutivos antes de que se vuelvan visibles a nivel poblacional.
+
+Lo importante es que ahora la capacidad experimental y computacional para responder esas preguntas quedó instalada, y tambien el know-how!
+
+## La moraleja científica
+
+Me gusta este trabajo porque resume algo que ocurre más frecuentemente en ciencia de lo que solemos admitir en los papers.
+
+El proyecto no comenzó con:
+
+> “Nuestra hipótesis es que una secuenciación ultra profunda permitirá caracterizar…”
+
+Comenzó más parecido a:
+
+> “Oye… ¿por qué tenemos tanta cobertura?”
+
+🤣
+
+Después vino la pregunta.
+
+Después el análisis.
+
+Después varias iteraciones, filtros, discusión, bioinformática, estadística y bastante tiempo tratando de entender qué nos estaban diciendo los datos.
+
+Y finalmente apareció una historia científica que **no habíamos planeado encontrar**.
+
+Quizás esa sea mi parte favorita.
+
+En ciencia intentamos controlar todo: hipótesis, diseño experimental, protocolos, tamaños muestrales, pipelines.
+
+Y está bien que sea así.
+
+Pero de vez en cuando uno comete un error, obtiene una cantidad ridícula de datos y descubre que la pregunta realmente interesante estaba escondida precisamente ahí.
+
+Esta vez tuvimos suerte.
+
+**Usamos una flowcell demasiado grande.**
+
+Terminamos mirando la evolución de SARS-CoV-2 dentro de pacientes chilenos.
+
+Y tres años después conseguimos un paper.
+
+No recomiendo convertir esto en metodología experimental.
+
+Pero funcionó. 🤣
+
+[1]: https://www.nature.com/articles/s41598-026-59521-8
+[2]: https://www.uoh.cl/investigacion-desarrollada-en-la-uoh-revela-la-diversidad-oculta-del-sars-cov-2/
